@@ -1,0 +1,9 @@
+{
+  "watch": ["server"],
+  "ext": "ts",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "ts-node ./server/index.ts",
+  "events": {
+    "restart": "osascript -e 'display notification \"app restarted\" with title \"nodemon\"'"
+  }
+}

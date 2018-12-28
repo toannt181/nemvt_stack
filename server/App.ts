@@ -1,22 +1,17 @@
 import * as express from 'express'
+import CustomerRoute from './routes/CustomerRoute'
 
 class App {
-  public express
+  public app: express.Application
 
   constructor() {
-    this.express = express()
-    this.mountRoutes()
+    this.app = express()
+    this.mountedRoute()
   }
 
-  private mountRoutes(): void {
-    const router = express.Router()
-    router.get('/', (req, res) => {
-      res.json({
-        message: 'Hello World!'
-      })
-    })
-    this.express.use('/', router)
+  private mountedRoute(): void {
+    this.app.use('/customers', new CustomerRoute().router)
   }
 }
 
-export default new App().express
+export default new App().app
