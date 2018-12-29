@@ -1,7 +1,7 @@
-import * as dotenv from 'dotenv'
+require('dotenv').config()
+require('module-alias/register')
 import app from './App'
 
-dotenv.config()
 const port = process.env.PORT || 3000
 
 app.listen(port, (err) => {

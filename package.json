@@ -7,7 +7,9 @@
     "build": "tsc",
     "dev": "nodemon",
     "start": "nodemon ./dist/index.js",
-    "prod": "npm run build && npm run start"
+    "prod": "npm run build && npm run start",
+    "sequelize": "sequelize",
+    "playground": "nodemon --exec ts-node ./server/playground.ts"
   },
   "repository": {
     "type": "git",
@@ -19,15 +21,23 @@
     "url": "https://github.com/toannt181/nemvt_stack/issues"
   },
   "homepage": "https://github.com/toannt181/nemvt_stack#readme",
+  "_moduleAliases": {
+    "@": "./server"
+  },
   "dependencies": {
     "dotenv": "^6.2.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "faker": "^4.1.0",
+    "module-alias": "^2.1.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.4",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",
     "nodemon": "^1.18.9",
     "ts-node": "^7.0.1",
-    "tsc": "^1.20150623.0",
     "typescript": "^3.2.2",
     "typescript-eslint-parser": "^21.0.2"
   }
