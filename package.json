@@ -9,6 +9,9 @@
     "start": "nodemon ./dist/index.js",
     "prod": "npm run build && npm run start",
     "sequelize": "sequelize",
+    "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all",
+    "refresh": "sequelize db:migrate:undo:all && npm run migrate",
     "playground": "nodemon --exec ts-node ./server/playground.ts"
   },
   "repository": {
