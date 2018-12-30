@@ -1,7 +1,10 @@
 import * as express from 'express'
 import * as morgan from 'morgan'
+import * as bodyParser from 'body-parser'
+import * as cors from 'cors'
+
 import DB from '@/configs/DB'
-import CustomerController from '@/controllers/CustomerController'
+import Routers from '@/configs/Routers'
 
 class App {
   public app: express.Application
@@ -19,6 +22,9 @@ class App {
 
   private configExpress(): void {
     this.app.use(morgan('tiny'))
+    this.app.use(cors())
+    this.app.use(bodyParser.json())
+    this.app.use(bodyParser.urlencoded({ extended: true }))
   }
 
   private configDatabase(): Promise<any> {
@@ -33,7 +39,16 @@ class App {
   }
 
   private configRouter(): void {
-    this.app.use('/customers', new CustomerController().router)
+    this.app.use('/api', Routers)
+
+    // ERROR handler
+    // this.app.use((err, req, res) => {
+    //   res.status(err.status || 500)
+    //   res.json({
+    //     error: err.message,
+    //     code: err.status || 500,
+    //   })
+    // })
   }
 }
 
