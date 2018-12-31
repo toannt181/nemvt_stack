@@ -4,14 +4,19 @@ export default async function AuthorizeMiddleware(req, res, next) {
   const { headers: { authorization } } = req
   const accessToken = authorization && authorization.split(' ')[1]
   if (!accessToken) {
-    return res.status(401).json({ message: 'Unauthorized user' })
+    unauthenticated(res)
   }
-  const user = await vertifyJWT(accessToken)
-  if (!user) {
-    return res.status(401).json({ message: 'Unauthorized user' })
+  try {
+    const user = await vertifyJWT(accessToken)
+    if (!user) {
+      throw new Error('User unauthenticated')
+    }
+    req.user = user
+    next()
+  } catch (error) {
+    console.error(error)
+    unauthenticated(res)
   }
-  req.user = user
-  next()
 }
 
 function vertifyJWT(token) {
@@ -24,4 +29,8 @@ function vertifyJWT(token) {
       resolve(decoded)
     })
   })
+}
+
+function unauthenticated(res) {
+  return res.status(401).json({ message: 'Unauthorized user' })
 }

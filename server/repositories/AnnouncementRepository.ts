@@ -7,5 +7,13 @@ export default {
     } catch (error) {
       console.error(error)
     }
+  },
+
+  findOne(payload) {
+    try {
+      return AnnouncementModel.findOne(payload)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
