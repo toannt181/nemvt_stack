@@ -1,9 +1,9 @@
 # nemvt_stack
 Node - Express - Mysql - Vue - Typescript stack playground (just for fun)
-- server
-  ++ models
-  ++ controllers
-  ++ services
-  ++ repositories
-  ++ routers
-  ++ configs
+-- server
+  ++ models <br>
+  ++ controllers  <br>
+  ++ services <br>
+  ++ repositories <br>
+  ++ routers <br>
+  ++ configs <br>
