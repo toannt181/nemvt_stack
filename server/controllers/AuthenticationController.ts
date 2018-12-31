@@ -1,20 +1,18 @@
 import BaseController from './BaseController'
-import UserModel from '@/models/UserModel'
 import * as bcrypt from 'bcrypt'
-
+import * as jwt from 'jsonwebtoken'
+import UserServices from '@/services/UserServices'
 export default class AuthenticationController extends BaseController {
   constructor() {
     super()
     this.router.post('/login', this.login)
     this.router.post('/logout', this.logout)
-    this.router.get('/auth-user', this.getAuthUser)
-    this.router.get('/auth-users', this.setAuthUser)
   }
 
-  async login(req, res) {
-    const { body, session } = req
+  login = async (req, res) => {
+    const { body } = req
     const { email, password } = body
-    const user = await UserModel.findOne({ where: { email } })
+    const user = await UserServices.loginUser({ email })
     if (!user) {
       res.status = 500
       res.json({ message: 'Cannot find email' })
@@ -26,17 +24,15 @@ export default class AuthenticationController extends BaseController {
       res.json({ message: 'Password was not matched' })
       return
     }
-    req.session.userId = user.get({ plain: true }).id
-    res.json({ session, isMatchPassword })
+    const access_token = this.generateJWT({
+      id: user.id,
+      email: user.email,
+    })
+    await UserServices.updateToken({ id: user.id }, access_token)
+    res.json({ data: { access_token } })
   }
 
   async logout(req, res) {
-    const { session } = req
-    if (session) {
-      req.session.destroy(function (err) {
-        console.log('DESTROY SESSION')
-      })
-    }
     res.json({ message: 'OK' })
   }
 
@@ -46,8 +42,7 @@ export default class AuthenticationController extends BaseController {
     res.json({ id: session.userId })
   }
 
-  async getAuthUser(req, res) {
-    const { session } = req
-    res.json({ id: session.userId })
+  generateJWT(payload) {
+    return jwt.sign(payload, process.env.SECRET, { expiresIn: 60 * 60 })
   }
 }

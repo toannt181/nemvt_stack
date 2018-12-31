@@ -6,5 +6,11 @@ export default DB.define('users', {
     type: Sequelize.STRING,
     unique: true,
   },
+  role: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 1,
+  },
   password: Sequelize.STRING,
+  access_token: Sequelize.STRING,
 })

@@ -7,7 +7,7 @@ const {
   DB_PASSWORD,
   DB_PORT,
 } = process.env
-console.log({DB_DATABASE})
+
 const sequelize = new Sequelize({
   dialect: 'mysql',
   host: DB_HOST,

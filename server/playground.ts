@@ -1,24 +1,10 @@
-function f() {
-  console.log("f(): evaluated");
-  return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
-      console.log("f(): called", target);
-  }
-}
+const faker = require('faker')
 
-function g() {
-  console.log("g(): evaluated");
-  return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
-      console.log("g(): called");
-  }
-}
+    const list = Array(10).fill(1).map(() => ({
+      title: faker.lorem.sentence,
+      content: faker.lorem.paragraph,
+      created_at: faker.date.past,
+      updated_at: faker.date.past,
+    }))
 
-class C {
-  @f()
-   method() {
-    console.log('me', this)
-  }
-
-}
-var t = new C().method
-
-const toan = { name: 'toan' }
+    console.log(list)
