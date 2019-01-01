@@ -21,7 +21,7 @@ export default class AnnouncementController extends BaseController {
   async getAnnouncement(req, res, next) {
     try {
       const { id } = req.params
-      const data = await AnnouncementServices.getAnnouncement({ id }, { limit: 5 })
+      const data = await AnnouncementServices.getAnnouncement({ id })
       res.json({ data })
     } catch (error) {
       console.log('ERR', error)

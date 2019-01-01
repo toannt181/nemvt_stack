@@ -43,6 +43,6 @@ export default class AuthenticationController extends BaseController {
   }
 
   generateJWT(payload) {
-    return jwt.sign(payload, process.env.SECRET, { expiresIn: 60 * 60 })
+    return jwt.sign(payload, process.env.SECRET, { expiresIn: 60 * 60 * 100000 })
   }
 }

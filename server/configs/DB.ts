@@ -5,7 +5,6 @@ const {
   DB_DATABASE,
   DB_USERNAME,
   DB_PASSWORD,
-  DB_PORT,
 } = process.env
 
 const sequelize = new Sequelize({
@@ -22,7 +21,7 @@ const sequelize = new Sequelize({
     },
     timestamps: true,
   },
-  sync: { force: true },
+  // sync: { force: true },
   pool: {
     max: 5,
     idle: 30000,

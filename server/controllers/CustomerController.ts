@@ -1,5 +1,5 @@
 import BaseController from './BaseController'
-import CustomerModel from '@/models/CustomerModel'
+import CustomerServices from '@/services/CustomerServices'
 
 export default class CustomerController extends BaseController {
   constructor() {
@@ -7,9 +7,17 @@ export default class CustomerController extends BaseController {
     this.router.get('/', this.getCustomers)
   }
 
-  async getCustomers(req, res) {
-    const { params, query } = req
-    const customers = await CustomerModel.findAll()
-    res.json({ customers, params, query })
+  async getCustomers(req, res, next) {
+    const { query } = req
+    try {
+      const limit = Number(query.limit)
+      const page = Number(query.page)
+      if (!limit || !page) throw new Error('Customer params error')
+      const customers = await CustomerServices.getCustomers({ limit, offset: (page - 1) * limit })
+      res.json({ data: { customers } })
+    } catch (error) {
+      console.log('ERR', error)
+      next(new Error('Failed to load customers'))
+    }
   }
 }
