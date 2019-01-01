@@ -30,5 +30,21 @@ export default {
     } catch (error) {
       console.error(error)
     }
+  },
+
+  destroy(payload) {
+    try {
+      return CustomerModel.destroy(payload)
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
+  create(payload) {
+    try {
+      return CustomerModel.create(payload)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
