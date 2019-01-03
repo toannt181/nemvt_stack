@@ -21,7 +21,7 @@ const sequelize = new Sequelize({
     },
     timestamps: true,
   },
-  // sync: { force: true },
+  sync: { force: true },
   pool: {
     max: 5,
     idle: 30000,

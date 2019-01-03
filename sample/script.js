@@ -1,6 +1,6 @@
 require('dotenv').config()
-import * as path from 'path'
-import { exec } from 'child_process'
+const path = require('path')
+const { exec } = require('child_process')
 
 const industryStandard = path.join(__dirname, '../sample/dump.sql')
 
@@ -35,10 +35,8 @@ var runSqlScript = function (file, callback) {
 }
 
 
-function rebuild() {
+module.exports = function rebuild() {
   runSqlScript(industryStandard, function () {
     process.exit(0)
   })
 }
-
-rebuild()
